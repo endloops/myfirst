@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: IntegrationService
+server:
+  port: 1022
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1021/eureka/
