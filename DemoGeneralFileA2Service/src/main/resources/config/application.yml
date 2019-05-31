@@ -1,8 +1,8 @@
 spring:
   application:
-    name: IntegrationService 
+    name: userInformatService
 server:
-  port: 1022
+  port: 1023
 eureka:
   client:
     serviceUrl:
