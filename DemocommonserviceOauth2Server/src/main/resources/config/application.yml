@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: oauth2
+server:
+  port: 1025
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1021/eureka/
+securityldap:
+  url: ldaps://localhost:1636/dc=example,dc=com
+  base: cn=admin
+  userDn: cn=admin
+  password: password
+  userOu: ou=application
+  group: ou=application
+  keystorename: C:\Users\wang\Desktop\loopPrivate\oud\truststore
+  keystorepassword: 11111111111111111111111

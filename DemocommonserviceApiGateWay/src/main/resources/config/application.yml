@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: userInformatService
+security:
+  oauth2:
+    client:
+      client-id: api-gateway
+      client-secret: password
+      access-token-uri: http://localhost:1025/oauth/token
+      user-authorization-uri: http://localhost:1025/oauth/authorize
+      scope: read,write 
+    resource:
+      jwt:
+        key-value: secret
+server:
+  port: 1026
+  servlet:
+    context-path: /apis
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1021/eureka/
