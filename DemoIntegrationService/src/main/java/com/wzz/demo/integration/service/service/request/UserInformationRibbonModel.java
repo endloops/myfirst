@@ -15,6 +15,10 @@ public class UserInformationRibbonModel {
 
 	private String exceptionCode;
 	
+	private String errException;
+	
+	private String errorMessage;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -62,16 +66,36 @@ public class UserInformationRibbonModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserInformationRibbonModel(String exceptionCode) {
+	public UserInformationRibbonModel(String exceptionCode,String errMessage,String exceptionClass) {
 		super();
 		this.exceptionCode = exceptionCode;
+		this.errorMessage = errMessage;
+		this.errException = exceptionClass;
+	}
+
+	public String getErrException() {
+		return errException;
+	}
+
+	public void setErrException(String errException) {
+		this.errException = errException;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 	@Override
 	public String toString() {
 		return "UserInformationRibbonModel [userName=" + userName + ", passWord=" + passWord + ", nickName=" + nickName
-				+ ", exceptionCode=" + exceptionCode + "]";
+				+ ", exceptionCode=" + exceptionCode + ", errException=" + errException + ", errorMessage="
+				+ errorMessage + "]";
 	}
+
 	
 	
 	

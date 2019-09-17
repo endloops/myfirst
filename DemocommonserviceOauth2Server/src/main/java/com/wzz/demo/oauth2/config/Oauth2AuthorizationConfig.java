@@ -8,12 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -46,7 +51,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Bean
 	public JwtTokenStore jwtTokenStore() {
-		JwtTokenStore store = new JwtTokenStore(accessTokenConverter);
+		JwtTokenStore store = new JwtTokenStore(accessTokenConverter());
 		return store;
 	}
 	/**
@@ -68,9 +73,9 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Bean
 	@Primary
-	public DefaultTokenServices tokenServices() {
+	public DefaultTokenServices idotokenServices() {
 		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-		defaultTokenServices.setTokenStore(jwtTokenStore);
+		defaultTokenServices.setTokenStore(jwtTokenStore());
 		defaultTokenServices.setTokenEnhancer(tokenEnhancerChain());
 		defaultTokenServices.setSupportRefreshToken(true);
 		defaultTokenServices.setAccessTokenValiditySeconds(60 * 60 * 9);
@@ -141,7 +146,26 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints.authenticationManager(authenticationManager)
-				 .tokenServices(tokenServices()).redirectResolver(redirectResolver);
+				 .tokenServices(idotokenServices()).redirectResolver(redirectResolver);
 	}
+	
+//	@Configuration
+//	@EnableResourceServer
+//	protected class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+//
+//		@Override
+//		public void configure(ResourceServerSecurityConfigurer resources) {
+//
+//			resources.resourceId("OAUTH2_RESOURCE_ID").tokenServices(idotokenServices()).tokenStore(jwtTokenStore).stateless(true);
+//
+//		}
+//		@Override
+//		public void configure(HttpSecurity http) throws Exception {
+//			http.requestMatchers()
+//			.antMatchers("/userInfo").and().authorizeRequests()
+//			.antMatchers("/userInfo").access("hasRole('USER')").and().csrf().disable()
+//					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+//		}
+//	}
 
 }

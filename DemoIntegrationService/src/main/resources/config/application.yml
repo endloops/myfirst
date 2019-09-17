@@ -1,8 +1,23 @@
 spring:
+  redis:
+    host: 119.3.185.186
+    port: 6379
+    password: 153246w@
+    database: 1
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    timeout: 5000
   application:
     name: IntegrationService 
 server:
   port: 1022
+feign:
+  hystrix:
+    enabled: true
 eureka:
   client:
     serviceUrl:

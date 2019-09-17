@@ -62,8 +62,8 @@ public class Oauth2SecurityConfig extends WebSecurityConfigurerAdapter {
 				.withUser("danan").password("{noop}danan")
 				.authorities("ROLE_USER", "ROLE_READ", "ROLE_WRITE").and().withUser("mvtm").password("password")
 				.authorities("ROLE_USER", "ROLE_READ", "ROLE_WRITE").and().and()
-//			.userDetailsService(customerClientDetailsService()).and()//从数据库取用户名，密码
-//			.authenticationProvider(LdapAuthenticationProvider())//从ladp服务器取出来，用户名密码
+			.userDetailsService(customerClientDetailsService()).and()//从数据库取用户名，密码
+			.authenticationProvider(LdapAuthenticationProvider())//从ladp服务器取出来，用户名密码
 			.eraseCredentials(false);
 		// .ldapAuthentication().contextSource().url("ldaps://192.168.89.253:3269/dc=ad,dc=service,dc=com").managerDn("system").managerPassword("password").
 		// and().userDnPatterns("CN={0},cn=Users").groupSearchBase("ou=application").groupSearchFilter("cn");

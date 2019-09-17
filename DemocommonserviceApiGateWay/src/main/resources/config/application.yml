@@ -1,6 +1,6 @@
 spring:
   application:
-    name: userInformatService
+    name: api-gateway
 security:
   oauth2:
     client:
@@ -9,7 +9,7 @@ security:
       access-token-uri: http://localhost:1025/oauth/token
       user-authorization-uri: http://localhost:1025/oauth/authorize
       scope: read,write 
-    resource:
+    resource: 
       jwt:
         key-value: secret
 server:

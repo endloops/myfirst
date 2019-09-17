@@ -32,7 +32,7 @@ public class CustomerClientDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	if(username.split(",").length==3){
     		LOGGER.info("mysql zou le");
-    		return new User(username, "password", true, true, true, true, AuthorityUtils.createAuthorityList("ROLE_USER"));  
+    		return new User(username, "{noop}password", true, true, true, true, AuthorityUtils.createAuthorityList("ROLE_USER"));  
     	}else{
     		throw new UsernameNotFoundException("some exception set up");
     	}
