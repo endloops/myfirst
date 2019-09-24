@@ -47,7 +47,7 @@ public class UserInformation {
 	public UserInformationRibbonModel searchUserByID(@PathVariable("id") Long id) throws JsonProcessingException {
 		UserInformationRibbonModel model = new UserInformationRibbonModel("1111", "1111", "1111", "1111");
 		model = userInformationService.searchUserByID(id);
-		UserInformationRibbonModel feignRes = serviceFeign.getOneUser(id);
+//		UserInformationRibbonModel feignRes = serviceFeign.getOneUser(id);
 		UserRedisDao userRes = userInformationService.getOneInformation("wang", UserRedisDao.class);
 		ObjectMapper mapper = new ObjectMapper();
 		logger.info(mapper.writeValueAsString(model));

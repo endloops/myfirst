@@ -25,10 +25,7 @@
                      <charset>UTF-8</charset> <!-- 此处设置字符集 -->
               </encoder>
        </appender>
-       <root level="DEBUG">
+       <root level="warn">
               <appender-ref ref="STDOUT" />
        </root>
-       <logger name="com.example" level="DEBUG">
-              <appender-ref ref="baselog" />
-       </logger>
 </configuration>

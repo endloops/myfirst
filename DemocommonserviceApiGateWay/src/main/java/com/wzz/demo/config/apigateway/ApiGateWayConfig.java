@@ -38,7 +38,7 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 
 @Configuration
 @EnableOAuth2Sso
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class ApiGateWayConfig  extends WebSecurityConfigurerAdapter{
 	/**
 	 * 这里用了yml里面的配置
@@ -147,7 +147,7 @@ public class ApiGateWayConfig  extends WebSecurityConfigurerAdapter{
 
 				http.requestMatchers()
 				.antMatchers("/oauth2/**","/login", "/management/**", "/transfer/**", "/logout", "/user/login","/apis/**",
-						"/irecorder/**" ,"/ceshi" ,"/zuul/**").and().addFilterAfter(authenticationProcessingFilter, SecurityContextPersistenceFilter.class).
+						"/irecorder/**" ,"/ceshi" ,"/zuul/**","/userService/**").and().addFilterAfter(authenticationProcessingFilter, SecurityContextPersistenceFilter.class).
 				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
 	            .authorizeRequests()
 //	                .antMatchers("/oauth2/oauth/token").permitAll()

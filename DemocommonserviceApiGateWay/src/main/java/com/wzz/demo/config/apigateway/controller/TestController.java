@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.net.MediaType;
 
 @RestController
-@RequestMapping("/apis")
+@RequestMapping("/apiss")
 public class TestController {
 
 	@ResponseBody

@@ -3,6 +3,9 @@ spring:
     name: userInformatService
 server:
   port: 1023
+  tomcat:
+    max-threads: 1000
+    max-connections: 2000 
 eureka:
   client:
     serviceUrl:

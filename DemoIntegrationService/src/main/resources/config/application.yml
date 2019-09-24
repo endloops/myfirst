@@ -18,6 +18,11 @@ server:
 feign:
   hystrix:
     enabled: true
+hystrix:
+  command:
+    default:
+      circuitBreaker:
+        requestVolumeThreshold: 1000 #断路器请求容量阈值（异常失败个数最大值）
 eureka:
   client:
     serviceUrl:

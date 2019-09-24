@@ -14,6 +14,6 @@ public class DBUserInformationController {
 	
 	@GetMapping("/{id}")
 	public UserInformationRibbonModel searchUserInformationDB(@PathVariable("id") Long id) throws Exception{
-		 throw new Exception("德玛西亚，动词大慈");
+		 return new UserInformationRibbonModel("2222", "2222", "2222", null);
 	}
 }

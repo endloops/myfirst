@@ -1,0 +1,51 @@
+server:
+  port: 1028
+spring:
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
+#  security:
+#    oauth2:
+#      client:
+#        provider:
+#          uaa:
+#            authorization-uri: http://localhost:1025/oauth/authorize
+#            token-uri: http://localhost:1025/oauth/token
+##            jwt-key-uri: http://localhost:1025/oauth/token_key
+#            user-info-uri: http://localhost:1025/userInfo
+#            user-name-attribute: sub
+#        registration: 
+#          login-client:
+#            provider: uaa 
+#            client-id: api-gateway
+#            client-secret: password
+#            authorization-grant-type: authorization_code
+#            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+#            scope: read,write 
+#      
+              
+  cloud:
+    gateway:
+      routes:
+        - id: after_route
+          uri: http://www.baidu.com
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+            - Path=/ssss
+        - id: before_route  
+          uri: http://www.baidu.com
+          predicates:
+            - Before=2020-01-20T17:42:47.789-07:00[America/Denver]  
+            - Path=/aaa 
+        - id: login
+          uri: http://localhost:1025
+          predicates:
+            - Path=/login
+          filters:
+            - RewritePath=/login(?<segment>.*), /oauth/token$\{segment}
+        - id: other
+          uri: http://localhost:1025
+          predicates:
+            - Path=/service/**
+          filters:
+            - RewritePath=/service/(?<segment>.*), /sssss/$\{segment}

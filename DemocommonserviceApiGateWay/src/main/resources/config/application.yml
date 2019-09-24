@@ -12,8 +12,46 @@ security:
     resource: 
       jwt:
         key-value: secret
+zuul:
+  ribbon-isolation-strategy: THREAD #启用线程隔离，hystrix 配置生效
+  thread-pool:
+    use-separate-thread-pools: true
+    thread-pool-key-prefix: zuulgw
+#  host:   #适用于URL的路由转发
+#    max-per-route-connections: 
+#    max-total-connections: 
+  sensitive-headers: Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken    
+  routes:
+    integration:
+      id: USERINFORMATSERVICE 
+      service-id: USERINFORMATSERVICE
+      path: /userService/** 
+USERINFORMATSERVICE:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
+hystrix:
+  threadpool:
+    default:
+      coreSize: 100     #设置线程池数量 影响并发速度
+      maximumSize: 10000
+      allowMaximumSizeToDivergeFromCoreSize: true
+      maxQueueSize: -1
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 1000   
+ribbon:
+  ReadTimeout: 1000
+  ConnectTimeout: 1000
+  OkToRetryOnAllOperations: true
+  MaxAutoRetries: 1
+  MaxAutoRetriexNextServer: 1
 server:
   port: 1026
+  tomcat:
+    max-threads: 1000
   servlet:
     context-path: /apis
 eureka:
