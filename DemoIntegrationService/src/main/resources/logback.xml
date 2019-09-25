@@ -31,23 +31,10 @@
 			<charset>UTF-8</charset> <!-- 此处设置字符集 -->
 		</encoder>
 	</appender>
-	<logger name="org.springframework.web" level="info">
-		<appender-ref ref="STDOUT"></appender-ref>
-	</logger>
-	<logger name=" org.springframework.security" level="info">
-		<appender-ref ref="STDOUT"></appender-ref>
-	</logger>
-	<logger name="org.springframework.security.oauth2" level="info">
-		<appender-ref ref="STDOUT"></appender-ref>
-	</logger>
-	<logger name="org.springframework.cloud.gateway" level="TRACE">
-		<appender-ref ref="STDOUT"></appender-ref>
-	</logger>
-	<root level="Info">
+    <logger name="org.springframework.web.servlet.handler" level="trace"/>
+    <logger name="org.springframework.boot.actuate.endpoint.web" level="trace"/> <!-- 打印actuator 日志 -->
+	<root level="info">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="stash"/>
 	</root>
-	<logger name="com.example" level="DEBUG">
-		<appender-ref ref="baselog" />
-	</logger>
 </configuration>

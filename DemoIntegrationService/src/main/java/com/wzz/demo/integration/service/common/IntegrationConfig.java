@@ -10,6 +10,10 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.client.RestTemplate;
+
+import com.netflix.loadbalancer.BestAvailableRule;
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.RoundRobinRule;
 /**
  * 服务配置类
  * @author wang
@@ -29,6 +33,12 @@ public class IntegrationConfig {
 		return restTemplate;
 		
 	}
+	
+	@Bean
+	public IRule ribbonRule(){
+		return new RoundRobinRule();
+	}
+	
 	
 	@Bean
 	@ConditionalOnMissingBean(name = "redisTemplate")

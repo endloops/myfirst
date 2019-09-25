@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: admin-client
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  profiles:
+    active: ${profiles}
+  cloud:
+    config:
+#     在本地测试时，下面的uri需要改成自己的product-config-server项目所在的服务器地址,目前的配置是部署在服务的config-server配置
+      uri: http://localhost:1071
+      label: master
+      fail-fast: true
+      profile: ${spring.profiles.active}

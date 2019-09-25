@@ -1,0 +1,24 @@
+#spring:
+#  application:
+#    name: admin-server
+#server:
+#  port: 1051
+#eureka:
+#  client:
+#    registry-fetch-interval-seconds: 5
+#    service-url:
+#      defaultZone: http://eureka:1021/eureka
+#  instance:
+#    lease-renewal-interval-in-seconds: 10
+#    health-check-url-path: /actuator/health
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: always
+#logging:
+#  pattern:
+#    level: info

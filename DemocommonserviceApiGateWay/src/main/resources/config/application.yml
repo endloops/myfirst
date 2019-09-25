@@ -23,10 +23,15 @@ zuul:
   sensitive-headers: Access-Control-Allow-Origin
   ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken    
   routes:
-    integration:
+    userService:
       id: USERINFORMATSERVICE 
       service-id: USERINFORMATSERVICE
       path: /userService/** 
+#IntegrationService
+    intergation:
+      id: INTEGRATIONSERVICE
+      service-id: INTEGRATIONSERVICE
+      path: /intergation/**
 USERINFORMATSERVICE:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule

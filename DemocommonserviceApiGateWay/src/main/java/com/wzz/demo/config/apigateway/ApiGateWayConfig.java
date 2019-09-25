@@ -147,7 +147,7 @@ public class ApiGateWayConfig  extends WebSecurityConfigurerAdapter{
 
 				http.requestMatchers()
 				.antMatchers("/oauth2/**","/login", "/management/**", "/transfer/**", "/logout", "/user/login","/apis/**",
-						"/irecorder/**" ,"/ceshi" ,"/zuul/**","/userService/**").and().addFilterAfter(authenticationProcessingFilter, SecurityContextPersistenceFilter.class).
+						"/irecorder/**" ,"/ceshi" ,"/zuul/**","/userService/**","/intergation/**").and().addFilterAfter(authenticationProcessingFilter, SecurityContextPersistenceFilter.class).
 				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
 	            .authorizeRequests()
 //	                .antMatchers("/oauth2/oauth/token").permitAll()

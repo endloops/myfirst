@@ -1,18 +1,27 @@
-spring:
-  application:
-    name: eureka-server
-server:
-  port: 1021
-eureka:
-  client:
-    # false表示不向注册中心注册自己
-    register-with-eureka: false
-    # false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
-    fetch-registry: false
-    service-url: 
-      defaultZone: http://eureka1:1031/eureka,http://eureka2:1041/eureka
-  instance:
-    hostname: eureka
-  server:
-    enable-self-preservation: false
-    eviction-interval-timer-in-ms: 5000 
+#spring:
+#  application:
+#    name: eureka-server
+#server:
+#  port: 1021
+#eureka:
+#  client:
+#    # false表示不向注册中心注册自己
+#    register-with-eureka: false
+#    # false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+#    fetch-registry: false
+#    service-url: 
+#      defaultZone: http://eureka1:1031/eureka,http://eureka2:1041/eureka
+#  instance:
+#    hostname: eureka
+#  server:
+#    enable-self-preservation: false #Eureka通过“自我保护模式”来解决这个问题——当Eureka Server节点在短时间内丢失过多客户端时（可能发生了网络分区故障），那么这个节点就会进入自我保护模式。一旦进入该模式，Eureka Server就会保护服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）。当网络故障恢复后，该Eureka Server节点会自动退出自我保护模式。
+#    eviction-interval-timer-in-ms: 5000  #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: always
+#          

@@ -34,8 +34,8 @@ management:
   
 eureka:
   instance:
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 10 
+    lease-renewal-interval-in-seconds: 5 # 客户端五秒发一次心跳
+    lease-expiration-duration-in-seconds: 10 #10秒没收到下一次心跳移除该服务实例
   client:
     serviceUrl:
       defaultZone: http://eureka:1021/eureka/,http://eureka1:1031/eureka/,http://eureka2:1041/eureka/

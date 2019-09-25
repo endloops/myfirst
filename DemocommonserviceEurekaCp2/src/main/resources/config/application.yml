@@ -1,16 +1,16 @@
-spring:
-  application:
-    name: eureka-server
-server:
-  port: 1041
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url: 
-      defaultZone: http://eureka:1021/eureka,http://eureka1:1031/eureka
-  instance:
-    hostname: eureka2
-  server:
-    enable-self-preservation: false
-    eviction-interval-timer-in-ms: 5000 
+#spring:
+#  application:
+#    name: eureka-server2
+#server:
+#  port: 1041
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url: 
+#      defaultZone: http://eureka:1021/eureka,http://eureka1:1031/eureka
+#  instance:
+#    hostname: eureka2
+#  server:
+#    enable-self-preservation: false
+#    eviction-interval-timer-in-ms: 5000 
