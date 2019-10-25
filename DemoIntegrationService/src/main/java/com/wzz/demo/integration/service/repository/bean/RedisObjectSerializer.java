@@ -7,6 +7,8 @@ import org.springframework.core.serializer.support.SerializingConverter;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class RedisObjectSerializer implements RedisSerializer<Object>{
 
 	private Converter<Object, byte[]> serializer = new SerializingConverter();
@@ -15,13 +17,15 @@ public class RedisObjectSerializer implements RedisSerializer<Object>{
 	
 	static final byte[] EMPTY_ARRAY = new byte[0];
 	
+	private ObjectMapper mapper = new ObjectMapper();
+	
 	@Override
 	public Object deserialize(byte[] arg0) throws SerializationException {
 		if(isEmpty(arg0)){
 			return null;
 		}
 		try {
-			return deserializer.convert(arg0);
+			return mapper.readValue(arg0, Object.class);
 		} catch (Exception e) {
 			throw new SerializationException("can not deserialize",e);
 		}
@@ -34,7 +38,7 @@ public class RedisObjectSerializer implements RedisSerializer<Object>{
 			return EMPTY_ARRAY;
 		}
 		try {
-			return serializer.convert(arg0);
+			return mapper.writeValueAsString(arg0).getBytes();
 		} catch (Exception e) {
 			return EMPTY_ARRAY;
 		}

@@ -1,6 +1,11 @@
 spring:
   application:
     name: userInformatService
+  zipkin:
+    base-url: http://119.3.185.186:9411
+  sleuth:
+    sampler:
+      probability: 1.0
 server:
   port: 1023
   tomcat:

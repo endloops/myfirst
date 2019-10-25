@@ -1,4 +1,6 @@
 spring:
+  cache:
+    type: redis
   redis:
     host: 119.3.185.186
     port: 6379
@@ -13,6 +15,19 @@ spring:
     timeout: 5000
   application:
     name: IntegrationService 
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    database: mysql     
+    show-sql: true     
+    hibernate:       
+      ddl-auto: update
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/rabbitqueue?characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+  
 server:
   port: 1022
 feign:

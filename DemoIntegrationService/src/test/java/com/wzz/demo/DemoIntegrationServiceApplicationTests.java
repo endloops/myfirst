@@ -1,5 +1,8 @@
 package com.wzz.demo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +33,11 @@ public class DemoIntegrationServiceApplicationTests {
 //		redisTemplate.opsForValue().set(redisDao.getUsername(), redisDao);
 		System.out.println(redisTemplate.opsForValue().get(redisDao.getUsername()));
 		System.out.println("222222222");
+	}
+	public static void main(String[] args) {
+		ArrayList arrayList = new ArrayList<>();
+		arrayList.add(1);
+		arrayList.add(new Integer(1));
+		System.out.println(Arrays.toString(arrayList.toArray()));
 	}
 }

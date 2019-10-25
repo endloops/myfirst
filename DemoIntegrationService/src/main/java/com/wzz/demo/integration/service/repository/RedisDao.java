@@ -12,23 +12,23 @@ import com.wzz.demo.integration.service.repository.bean.RedisObjectSerializer;
 @Repository
 public class RedisDao {
 
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
+//	@Autowired
+//	private StringRedisTemplate stringRedisTemplate;
 
 	@Autowired
 	private RedisTemplate<Object, Object> redisTemplate;
-
-	public String setKey(String key, String value) {
-		ValueOperations<String, String> re = stringRedisTemplate.opsForValue();
-		re.set(key, value);
-		return value;
-	}
-
-	public String getValue(String key) {
-		ValueOperations<String, String> res = stringRedisTemplate.opsForValue();
-		String value = res.get(key);
-		return value;
-	}
+//	public String setKey(String key, String value) {
+	
+//		ValueOperations<String, String> re = stringRedisTemplate.opsForValue();
+//		re.set(key, value);
+//		return value;
+//	}
+//
+//	public String getValue(String key) {
+//		ValueOperations<String, String> res = stringRedisTemplate.opsForValue();
+//		String value = res.get(key);
+//		return value;
+//	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T setKey(Object key, Object value,Class<T> valueClasee) {

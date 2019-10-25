@@ -3,17 +3,21 @@ package com.wzz.demo.config.apigateway;
 import java.util.Arrays;
 import java.util.Enumeration;
 
+import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -25,12 +29,17 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.security.web.session.ConcurrentSessionFilter;
 
 @Configuration
+
 //@EnableOAuth2Client
 public class Oauth2ClientConfig {
-
-   
+	
 //    protected String extractHeaderToken(HttpServletRequest request) {
 //		Enumeration<String> headers = request.getHeaders("Authorization");
 //		while (headers.hasMoreElements()) { // typically there is only one (most servers enforce that)
@@ -96,5 +105,39 @@ public class Oauth2ClientConfig {
         oauth.setAccessTokenProvider(passwordAccessTokenProvider);
         return oauth;
     }
+    @Bean
+	public SessionRegistryImpl sessionRegistry() {
+		SessionRegistryImpl registryImpl = new SessionRegistryImpl();
+		return registryImpl;
+	}
+
+	@Bean
+	public ConcurrentSessionControlAuthenticationStrategy authenticationStrategy() {
+		ConcurrentSessionControlAuthenticationStrategy concurrentSessionControl = new ConcurrentSessionControlAuthenticationStrategy(
+				sessionRegistry());
+		// at maximum 1 session is permitted
+		concurrentSessionControl.setMaximumSessions(1);
+		return concurrentSessionControl;
+	}
+
+	@Bean
+	@Qualifier("responseErrorSessionInformationExpiredStrategy")
+	public ResponseErrorSessionInformationExpiredStrategy responseErrorSessionInformationExpiredStrategy() {
+		ResponseErrorSessionInformationExpiredStrategy errorSessionInformationExpiredStrategy = new ResponseErrorSessionInformationExpiredStrategy();
+		return errorSessionInformationExpiredStrategy;
+	}
+
+	@Bean
+	@Qualifier("concurrentSessionFilter")
+	public ConcurrentSessionFilter concurrentSessionFilter(
+			@Qualifier("sessionRegistry") SessionRegistry sessionRegistry,
+			@Qualifier("responseErrorSessionInformationExpiredStrategy") ResponseErrorSessionInformationExpiredStrategy responseErrorSessionInformationExpiredStrategy) {
+		ConcurrentSessionFilter concurrentSessionFilter = new ConcurrentSessionFilter(sessionRegistry,
+				responseErrorSessionInformationExpiredStrategy);
+		LogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+		LogoutHandler cookieHandler = new CookieClearingLogoutHandler("JSESSIONID");
+		concurrentSessionFilter.setLogoutHandlers(new LogoutHandler[] { logoutHandler, cookieHandler });
+		return concurrentSessionFilter;
+	}
 
 }

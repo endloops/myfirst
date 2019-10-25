@@ -40,20 +40,20 @@ public class IntegrationConfig {
 	}
 	
 	
-	@Bean
-	@ConditionalOnMissingBean(name = "redisTemplate")
-	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
-		RedisTemplate<Object, Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(redisConnectionFactory);
-		return template;
-	}
+//	@Bean
+//	@ConditionalOnMissingBean(name = "redisTemplate")
+//	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
+//		RedisTemplate<Object, Object> template = new RedisTemplate<>();
+//		template.setConnectionFactory(redisConnectionFactory);
+//		return template;
+//	}
 	
-	@Bean
-	@ConditionalOnMissingBean
-	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory){
-		StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory);
-		return template;
-	}
+//	@Bean
+//	@ConditionalOnMissingBean
+//	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory){
+//		StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory);
+//		return template;
+//	}
 	
 	
 }

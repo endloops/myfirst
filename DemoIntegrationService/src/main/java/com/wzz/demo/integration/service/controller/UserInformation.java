@@ -1,5 +1,7 @@
 package com.wzz.demo.integration.service.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wzz.demo.db.SecondTestPO;
 import com.wzz.demo.integration.service.repository.bean.UserRedisDao;
+import com.wzz.demo.integration.service.service.SecondTestServiceImpl;
 import com.wzz.demo.integration.service.service.feign.UserServiceFeign;
 import com.wzz.demo.integration.service.service.interfaces.UserInformationService;
 import com.wzz.demo.integration.service.service.request.UserInformationRibbonModel;
@@ -31,6 +35,8 @@ public class UserInformation {
 	@Autowired
 	UserInformationService userInformationService;
 	
+	@Autowired
+	SecondTestServiceImpl secondTestServiceImpl;
 	
 	@Autowired
 	UserServiceFeign serviceFeign;
@@ -53,6 +59,13 @@ public class UserInformation {
 		logger.info(mapper.writeValueAsString(model));
 		return model;
 	}
-	
+	@GetMapping("/information/name/{name}")
+	public SecondTestPO searchByName(@PathVariable("name") String name){
+		return secondTestServiceImpl.selectOne(name);
+	}
+	@GetMapping("/information")
+	public List<SecondTestPO> searchAll(){
+		return secondTestServiceImpl.selectAll();
+	}
 	
 }
