@@ -6,6 +6,18 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
+  redis:
+    host: 119.3.185.186
+    port: 6379
+    password: 153246w@
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    timeout: 5000
   jpa:
     database-platform: org.hibernate.dialect.MySQL57Dialect
     database: mysql     
@@ -18,6 +30,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
+  transaction:
+    rollback-on-commit-failure: true
 server:
   port: 1024
   tomcat:
@@ -36,7 +50,10 @@ management:
       exposure:
         # 开启多个监控检查的接口
         include: "*"
-  
+tx-lcn:
+  client:
+    manager-address:
+      - 127.0.0.1:8070
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 5 # 客户端五秒发一次心跳

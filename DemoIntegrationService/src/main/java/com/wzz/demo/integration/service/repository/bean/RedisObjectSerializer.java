@@ -17,7 +17,7 @@ public class RedisObjectSerializer implements RedisSerializer<Object>{
 	
 	static final byte[] EMPTY_ARRAY = new byte[0];
 	
-	private ObjectMapper mapper = new ObjectMapper();
+//	private ObjectMapper mapper = new ObjectMapper();
 	
 	@Override
 	public Object deserialize(byte[] arg0) throws SerializationException {
@@ -25,7 +25,7 @@ public class RedisObjectSerializer implements RedisSerializer<Object>{
 			return null;
 		}
 		try {
-			return mapper.readValue(arg0, Object.class);
+			return deserializer.convert(arg0);
 		} catch (Exception e) {
 			throw new SerializationException("can not deserialize",e);
 		}
@@ -38,7 +38,7 @@ public class RedisObjectSerializer implements RedisSerializer<Object>{
 			return EMPTY_ARRAY;
 		}
 		try {
-			return mapper.writeValueAsString(arg0).getBytes();
+			return serializer.convert(arg0);
 		} catch (Exception e) {
 			return EMPTY_ARRAY;
 		}

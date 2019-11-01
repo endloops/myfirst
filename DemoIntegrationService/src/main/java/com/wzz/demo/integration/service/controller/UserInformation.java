@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wzz.demo.db.SecondTestPO;
+import com.wzz.demo.integration.service.common.ROLES;
 import com.wzz.demo.integration.service.repository.bean.UserRedisDao;
 import com.wzz.demo.integration.service.service.SecondTestServiceImpl;
 import com.wzz.demo.integration.service.service.feign.UserServiceFeign;
@@ -47,10 +48,11 @@ public class UserInformation {
 	 * 		id : 用户信息ID
 	 * @return
 	 * 		UserInformationRibbonModel: 用户详细信息展示
-	 * @throws JsonProcessingException 
+	 * @throws Exception 
 	 */
 	@GetMapping("/information/{id}")
-	public UserInformationRibbonModel searchUserByID(@PathVariable("id") Long id) throws JsonProcessingException {
+	@ROLES(value="Role_Admin")
+	public UserInformationRibbonModel searchUserByID(@PathVariable("id") Long id) throws Exception {
 		UserInformationRibbonModel model = new UserInformationRibbonModel("1111", "1111", "1111", "1111");
 		model = userInformationService.searchUserByID(id);
 //		UserInformationRibbonModel feignRes = serviceFeign.getOneUser(id);

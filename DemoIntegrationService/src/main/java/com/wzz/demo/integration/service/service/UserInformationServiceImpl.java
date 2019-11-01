@@ -3,6 +3,8 @@ package com.wzz.demo.integration.service.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixException;
+import com.wzz.demo.db.SecondTestPO;
+import com.wzz.demo.db.repository.SecondTestPORepository;
 import com.wzz.demo.integration.service.repository.RedisDao;
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.wzz.demo.integration.service.service.interfaces.UserInformationService;
@@ -32,16 +37,28 @@ public class UserInformationServiceImpl implements UserInformationService{
 	
 	@Autowired
 	RedisDao redisDao;
+	
+	@Autowired
+	SecondTestPORepository secondTestPORepository;
 
 	/**
 	 * 查询用户信息详情的接口。
+	 * @throws Exception 
 	 */
+	@LcnTransaction
 	@Override
-	@HystrixCommand(fallbackMethod="searchUserByIDRollback")
-	public UserInformationRibbonModel searchUserByID(Long id) {
+//	@HystrixCommand(fallbackMethod="searchUserByIDRollback")
+	@Transactional
+	public UserInformationRibbonModel searchUserByID(Long id) throws Exception {
 		Map<String, Long> params = new HashMap<>();
 		params.put("id", id);
+		SecondTestPO s = new SecondTestPO();
+		s.setName("11111sd");
+		secondTestPORepository.save(s);
 		ResponseEntity<UserInformationRibbonModel> userInformation = restTemplate.getForEntity("http://USERINFORMATSERVICE/searchUser/{id}", UserInformationRibbonModel.class, params);
+		if(id==1){
+			throw new Exception("a1dadadsadsadsa");
+		}
 		
 		return userInformation.getBody();
 	}

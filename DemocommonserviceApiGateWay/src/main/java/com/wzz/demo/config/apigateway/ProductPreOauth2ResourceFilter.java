@@ -22,7 +22,6 @@ public class ProductPreOauth2ResourceFilter extends AbstractPreAuthenticatedProc
 		Authentication authentication = tokenExtractor.extract(request);
 		if (authentication != null) {
 			Object obj = authentication.getPrincipal();
-
 			return obj;
 		}
 		return null;

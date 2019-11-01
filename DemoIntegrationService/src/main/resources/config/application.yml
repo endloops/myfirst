@@ -5,7 +5,7 @@ spring:
     host: 119.3.185.186
     port: 6379
     password: 153246w@
-    database: 1
+    database: 0
     jedis:
       pool:
         max-active: 8
@@ -27,7 +27,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
-  
+  transaction:
+    rollback-on-commit-failure: true
 server:
   port: 1022
 feign:
@@ -42,3 +43,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1021/eureka/
+tx-lcn:
+  client:
+    manager-address:
+      - 127.0.0.1:8070

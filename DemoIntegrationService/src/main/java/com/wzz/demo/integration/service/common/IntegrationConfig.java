@@ -34,10 +34,10 @@ public class IntegrationConfig {
 		
 	}
 	
-	@Bean
-	public IRule ribbonRule(){
-		return new RoundRobinRule();
-	}
+//	@Bean
+//	public IRule ribbonRule(){
+//		return new RoundRobinRule();
+//	}
 	
 	
 //	@Bean

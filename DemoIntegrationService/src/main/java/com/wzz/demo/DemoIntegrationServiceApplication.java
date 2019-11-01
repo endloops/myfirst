@@ -7,6 +7,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.codingapi.txlcn.tc.config.EnableDistributedTransaction;
 /**
  * 最上层 service 之一 
  * @author wang
@@ -18,6 +21,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableEurekaClient
 @EnableHystrix
 @SpringBootApplication
+@EnableDistributedTransaction
+@EnableTransactionManagement
 public class DemoIntegrationServiceApplication {
 
 	public static void main(String[] args) {

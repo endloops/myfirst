@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wzz.demo.db.business.FirstTestService;
 import com.wzz.demo.db.controller.response.UserInformationRibbonModel;
 import com.wzz.demo.db.persisit.FirstTestPO;
 import com.wzz.demo.db.persisit.repository.FirstTestRepository;
@@ -21,10 +22,13 @@ public class DBUserInformationController {
 	@Autowired
 	FirstTestRepository firstTestRepository;
 	
+	@Autowired
+	FirstTestService firstTestService;
+	
 	@GetMapping("/{id}")
 	public UserInformationRibbonModel searchUserInformationDB(@PathVariable("id") Long id){
 		FirstTestPO entity = new FirstTestPO();
-		FirstTestPO respo = firstTestRepository.save(entity);
+		FirstTestPO respo = firstTestService.saveNewFirstTestPO(entity);
 		return new UserInformationRibbonModel("111", "123123", "大小写", null);
 	}
 	@GetMapping("/instert")

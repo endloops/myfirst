@@ -14,8 +14,9 @@ public interface UserInformationService {
 	 * 		id: 用户在数据库表的ID
 	 * @return
 	 * 		UserInformationRibbonModel： 用户信息详情
+	 * @throws Exception 
 	 */
-	public UserInformationRibbonModel searchUserByID(Long id);
+	public UserInformationRibbonModel searchUserByID(Long id) throws Exception;
 		
 	public <T> T getOneInformation(Object key,Class<T> T);
 
